@@ -107,9 +107,14 @@ pub fn run(
                 println!("Running:      no");
             }
         }
+        DaemonCommands::Disable => {
+            crate::daemon::service::disable_service()?;
+        }
+        #[cfg(target_os = "macos")]
         DaemonCommands::Install { force } => {
             crate::daemon::service::install_service(force)?;
         }
+        #[cfg(target_os = "macos")]
         DaemonCommands::Uninstall => {
             crate::daemon::service::uninstall_service()?;
         }
